@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Girls Leadership Book Club — Summer Reading 2025</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+.app { max-width: 680px; margin: 0 auto; padding: 1rem; }
+h1 { font-size: 20px; font-weight: 500; margin-bottom: 0.25rem; }
+.subtitle { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+.tabs { display: flex; gap: 0; border-bottom: 1px solid #e0deda; margin-bottom: 1.5rem; overflow-x: auto; }
+.tab { font-size: 13px; padding: 8px 13px; border: none; background: none; color: #888; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+.tab.active { color: #1a1a1a; border-bottom-color: #7F77DD; font-weight: 500; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border: 0.5px solid #e0deda; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 12px; }
+.girl-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 0.5px solid #e0deda; }
+.girl-row:last-child { border-bottom: none; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+.rank { font-size: 13px; font-weight: 500; color: #888; width: 20px; text-align: center; flex-shrink: 0; }
+.rank.gold { color: #BA7517; }
+.rank.silver { color: #888780; }
+.rank.bronze { color: #993C1D; }
+.girl-name { font-size: 14px; font-weight: 500; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stat-col { text-align: right; flex-shrink: 0; width: 52px; }
+.stat-val { font-size: 14px; font-weight: 500; display: block; }
+.stat-lbl { font-size: 11px; color: #888; display: block; }
+.progress-wrap { flex: 2; min-width: 60px; }
+.progress-bar { height: 6px; background: #f0ede8; border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; }
+.milestone-badge { font-size: 11px; padding: 2px 7px; border-radius: 8px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+.form-group { margin-bottom: 10px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+label { font-size: 13px; color: #666; display: block; margin-bottom: 4px; }
+input, select, textarea { width: 100%; font-size: 14px; padding: 8px 10px; border: 0.5px solid #ccc; border-radius: 8px; background: #fff; color: #1a1a1a; outline: none; font-family: inherit; }
+input:focus, select:focus, textarea:focus { border-color: #7F77DD; box-shadow: 0 0 0 2px rgba(127,119,221,0.15); }
+textarea { height: 70px; resize: vertical; }
+.star-row { display: flex; gap: 4px; margin-bottom: 10px; }
+.star { font-size: 24px; cursor: pointer; color: #ddd; line-height: 1; }
+.star.lit { color: #BA7517; }
+.btn { padding: 9px 20px; font-size: 14px; font-weight: 500; border-radius: 8px; cursor: pointer; border: none; width: 100%; margin-top: 4px; font-family: inherit; }
+.btn-primary { background: #7F77DD; color: #fff; }
+.btn-primary:hover { background: #534AB7; }
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:disabled { background: #b0aae8; cursor: not-allowed; }
+.sort-toggle { display: flex; gap: 6px; margin-bottom: 1rem; align-items: center; }
+.sort-label { font-size: 13px; color: #888; }
+.sort-btn { font-size: 12px; padding: 4px 12px; border-radius: 8px; border: 0.5px solid #ccc; background: none; color: #888; cursor: pointer; font-family: inherit; }
+.sort-btn.active { background: #EEEDFE; color: #3C3489; border-color: #AFA9EC; font-weight: 500; }
+.summary-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.summary-card { background: #f5f4f0; border-radius: 8px; padding: 0.75rem 1rem; }
+.summary-card .s-val { font-size: 22px; font-weight: 500; }
+.summary-card .s-lbl { font-size: 12px; color: #888; }
+.select-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
+.select-row label { margin: 0; font-size: 14px; font-weight: 500; white-space: nowrap; }
+.select-row select { max-width: 220px; }
+.empty-state { text-align: center; padding: 2rem; color: #888; font-size: 14px; }
+.book-entry { padding: 10px 0; border-bottom: 0.5px solid #e0deda; }
+.book-entry:last-child { border-bottom: none; }
+.book-title-text { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.book-meta { font-size: 12px; color: #888; margin-bottom: 3px; }
+.book-notes { font-size: 12px; color: #888; font-style: italic; margin-top: 2px; }
+.stars-display { color: #BA7517; font-size: 13px; }
+.milestone-row { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 0.5px solid #e0deda; }
+.milestone-row:last-child { border-bottom: none; }
+.milestone-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+.milestone-title { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.milestone-desc { font-size: 13px; color: #666; margin-bottom: 4px; }
+.milestone-link { font-size: 12px; color: #534AB7; text-decoration: none; }
+.milestone-link:hover { text-decoration: underline; }
+.roster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.roster-input-row { display: flex; align-items: center; gap: 8px; }
+.roster-num { font-size: 12px; color: #888; width: 20px; text-align: right; flex-shrink: 0; }
+.notice { background: #f0ede8; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #666; margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 8px; }
+.msg { font-size: 13px; text-align: center; margin: 8px 0 0; min-height: 18px; }
+.msg.success { color: #0F6E56; }
+.msg.error { color: #993C1D; }
+.msg.info { color: #888; }
+.refresh-btn { font-size: 12px; color: #534AB7; background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; margin-left: auto; }
+.refresh-btn:hover { text-decoration: underline; }
+@media (max-width: 480px) {
+  .form-row.three { grid-template-columns: 1fr 1fr; }
+  .form-row.three .form-group:last-child { grid-column: span 2; }
+  .stat-col:last-of-type { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>📚 Girls Leadership Book Club</h1>
+  <p class="subtitle">Summer Reading Tracker 2025</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('leaderboard')">🏆 Leaderboard</button>
+    <button class="tab" onclick="switchTab('log')">➕ Log a book</button>
+    <button class="tab" onclick="switchTab('mybooks')">📖 My books</button>
+    <button class="tab" onclick="switchTab('milestones')">🎁 Prizes</button>
+    <button class="tab" onclick="switchTab('roster')">👥 Roster</button>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="panel-leaderboard" class="panel active">
+    <div class="sort-toggle">
+      <span class="sort-label">Sort by:</span>
+      <button class="sort-btn active" id="sort-books" onclick="setSort('books')">📚 Books</button>
+      <button class="sort-btn" id="sort-mins" onclick="setSort('mins')">⏱ Minutes</button>
+      <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
+    </div>
+    <div id="leaderboard-list"><div class="card"><div class="empty-state">Loading…</div></div></div>
+  </div>
+
+  <!-- LOG A BOOK -->
+  <div id="panel-log" class="panel">
+    <div class="notice">🌐 Entries are shared — everyone in the club sees the same leaderboard.</div>
+    <div class="card">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="log-girl">Your name</label>
+          <select id="log-girl"></select>
+        </div>
+        <div class="form-group">
+          <label for="log-date">Date finished</label>
+          <input type="date" id="log-date">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="log-title">Book title</label>
+        <input type="text" id="log-title" placeholder="e.g. Wonder">
+      </div>
+      <div class="form-row three">
+        <div class="form-group">
+          <label for="log-author">Author</label>
+          <input type="text" id="log-author" placeholder="e.g. R.J. Palacio">
+        </div>
+        <div class="form-group">
+          <label for="log-pages">Pages</label>
+          <input type="number" id="log-pages" placeholder="e.g. 315" min="1">
+        </div>
+        <div class="form-group">
+          <label for="log-mins">Minutes read</label>
+          <input type="number" id="log-mins" placeholder="e.g. 180" min="1">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="star-row">
+          <span class="star" data-val="1">★</span>
+          <span class="star" data-val="2">★</span>
+          <span class="star" data-val="3">★</span>
+          <span class="star" data-val="4">★</span>
+          <span class="star" data-val="5">★</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="log-notes">Notes (optional)</label>
+        <textarea id="log-notes" placeholder="What did you think? Would you recommend it?"></textarea>
+      </div>
+      <button class="btn btn-primary" id="save-btn" onclick="logBook()">Save book</button>
+      <p class="msg" id="log-msg"></p>
+    </div>
+  </div>
+
+  <!-- MY BOOKS -->
+  <div id="panel-mybooks" class="panel">
+    <div class="select-row">
+      <label for="view-girl">Viewing:</label>
+      <select id="view-girl" onchange="renderMyBooks()"></select>
+    </div>
+    <div class="summary-row" id="my-summary"></div>
+    <div class="card" id="mybooks-list"><div class="empty-state">Loading…</div></div>
+  </div>
+
+  <!-- PRIZES -->
+  <div id="panel-milestones" class="panel">
+    <div class="card" style="padding: 0.75rem 1.25rem;">
+      <div class="milestone-row">
+        <div class="milestone-num" style="background:#E1F5EE;color:#085041;">3</div>
+        <div>
+          <p class="milestone-title">SF Public Library — Summer @ Your Library</p>
+          <p class="milestone-desc">Register on Beanstack and log reading minutes to earn badges and enter local prize drawings. Runs all summer!</p>
+          <a class="milestone-link" href="https://sfpl.org/summer" target="_blank">↗ sfpl.org/summer — enroll free</a>
+        </div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-num" style="background:#FAEEDA;color:#633806;">5</div>
+        <div>
+          <p class="milestone-title">Pizza Hut Book It! — free personal pan pizza</p>
+          <p class="milestone-desc">Family-enrolled summer program. Kids log books online and earn a free personal pan pizza certificate.</p>
+          <a class="milestone-link" href="https://www.bookitprogram.com" target="_blank">↗ bookitprogram.com — enroll your family</a>
+        </div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-num" style="background:#EEEDFE;color:#3C3489;">8</div>
+        <div>
+          <p class="milestone-title">Barnes &amp; Noble — free book of your choice</p>
+          <p class="milestone-desc">Read 8 books, fill out the B&amp;N reading journal, and bring it to any store to pick a free book. Ages 4–12, runs June–August.</p>
+          <a class="milestone-link" href="https://www.barnesandnoble.com/shop/summer-reading-free-book-giveaway" target="_blank">↗ barnesandnoble.com — get the reading journal</a>
+        </div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-num" style="background:#E6F1FB;color:#0C447C;">12</div>
+        <div>
+          <p class="milestone-title">Half Price Books — $5 store coupon</p>
+          <p class="milestone-desc">Read 15+ minutes/day for 15 days to earn a $5 coupon. A great reward at the 12-book mark!</p>
+          <a class="milestone-link" href="https://www.halfpricebooks.com/summer-reading-2025/" target="_blank">↗ halfpricebooks.com — get the reading log</a>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#888;text-align:center;margin-top:8px;">Verify program dates and details at each link before sharing with families.</p>
+  </div>
+
+  <!-- ROSTER -->
+  <div id="panel-roster" class="panel">
+    <div class="notice">🔒 Roster changes affect everyone. Only the club organizer should edit this.</div>
+    <div class="card">
+      <div class="roster-grid" id="roster-grid"></div>
+      <button class="btn btn-primary" style="margin-top:1rem;" onclick="saveRoster()">Save roster</button>
+      <p class="msg" id="roster-msg"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const SHEET_ID = '191RYNL35RDqh2evnhT6vT1aDLPpELmmKste793-a18E';
+const API_KEY  = 'AIzaSyDtxGMH3pwEm3eFLBICEhmYCiuUD1vmHgk';
+const BASE     = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}`;
+
+const MILESTONES = [
+  { books:3,  label:'SFPL',   bg:'#E1F5EE', color:'#085041' },
+  { books:5,  label:'Pizza!', bg:'#FAEEDA', color:'#633806' },
+  { books:8,  label:'B&N',    bg:'#EEEDFE', color:'#3C3489' },
+  { books:12, label:'HPB',    bg:'#E6F1FB', color:'#0C447C' },
+];
+const AVATAR_COLORS = [
+  ['#E1F5EE','#085041'],['#EEEDFE','#3C3489'],['#FBEAF0','#72243E'],
+  ['#E6F1FB','#0C447C'],['#EAF3DE','#27500A'],['#FAEEDA','#633806'],
+  ['#FAECE7','#712B13'],['#F1EFE8','#444441'],['#E1F5EE','#0F6E56'],
+  ['#EEEDFE','#534AB7'],['#FBEAF0','#993556'],['#EAF3DE','#3B6D11'],
+  ['#FAEEDA','#854F0B'],['#E6F1FB','#185FA5'],
+];
+const FILL_COLORS = ['#5DCAA5','#AFA9EC','#ED93B1','#85B7EB','#97C459','#EF9F27','#F0997B','#B4B2A9','#5DCAA5','#AFA9EC','#ED93B1','#85B7EB','#EF9F27','#F0997B'];
+
+let girls = [];
+let books = [];
+let selectedRating = 0;
+let sortMode = 'books';
+
+function getInitials(n) { return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+function avatarStyle(i) { const c=AVATAR_COLORS[i%AVATAR_COLORS.length]; return `background:${c[0]};color:${c[1]};`; }
+function getMilestone(n) { let m=null; for(const ms of MILESTONES){if(n>=ms.books)m=ms;} return m; }
+function getNextMilestone(n) { for(const ms of MILESTONES){if(n<ms.books)return ms;} return null; }
+function fmtMins(m) { if(!m)return '0 min'; if(m<60)return m+' min'; const h=Math.floor(m/60),mn=m%60; return mn?`${h}h ${mn}m`:`${h}h`; }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+async function sheetGet(range) {
+  const r = await fetch(`${BASE}/values/${encodeURIComponent(range)}?key=${API_KEY}`);
+  if(!r.ok) throw new Error(await r.text());
+  return (await r.json()).values || [];
+}
+
+async function sheetAppend(range, values) {
+  const r = await fetch(`${BASE}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS&key=${API_KEY}`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ values })
+  });
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+async function sheetUpdate(range, values) {
+  const r = await fetch(`${BASE}/values/${encodeURIComponent(range)}?valueInputOption=RAW&key=${API_KEY}`, {
+    method:'PUT', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ values })
+  });
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+async function loadAll() {
+  document.getElementById('leaderboard-list').innerHTML = '<div class="card"><div class="empty-state">Loading…</div></div>';
+  try {
+    const [rosterRows, bookRows] = await Promise.all([
+      sheetGet('roster!A2:A20'),
+      sheetGet('books!A2:I2000')
+    ]);
+    girls = rosterRows.map(r=>r[0]||'').filter(Boolean);
+    books = bookRows.map(r=>({
+      id:r[0], girl:r[1], title:r[2], author:r[3],
+      pages:parseInt(r[4])||0, mins:parseInt(r[5])||0,
+      date:r[6], rating:parseInt(r[7])||0, notes:r[8]||''
+    }));
+    populateSelects();
+    renderLeaderboard();
+    renderMyBooks();
+    renderRoster();
+  } catch(e) {
+    document.getElementById('leaderboard-list').innerHTML = `<div class="card"><div class="empty-state" style="color:#993C1D;">Could not load data.<br><small>${esc(e.message)}</small></div></div>`;
+  }
+}
+
+function populateSelects() {
+  const opts = girls.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('');
+  document.getElementById('log-girl').innerHTML = opts;
+  document.getElementById('view-girl').innerHTML = opts;
+}
+
+function setSort(mode) {
+  sortMode = mode;
+  document.getElementById('sort-books').classList.toggle('active', mode==='books');
+  document.getElementById('sort-mins').classList.toggle('active', mode==='mins');
+  renderLeaderboard();
+}
+
+function renderLeaderboard() {
+  const counts={}, mins={};
+  girls.forEach(g=>{counts[g]=0;mins[g]=0;});
+  books.forEach(b=>{if(counts[b.girl]!==undefined){counts[b.girl]++;mins[b.girl]+=(b.mins||0);}});
+  const sorted = girls.slice().sort((a,b)=>sortMode==='books'?counts[b]-counts[a]:mins[b]-mins[a]);
+  const maxBooks = Math.max(...girls.map(g=>counts[g]),12);
+  const maxMins  = Math.max(...girls.map(g=>mins[g]),300);
+  const html = sorted.map((g,i)=>{
+    const n=counts[g],m=mins[g];
+    const rankClass=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+    const ms=getMilestone(n),next=getNextMilestone(n);
+    const pct=sortMode==='books'?Math.round((n/maxBooks)*100):Math.round((m/maxMins)*100);
+    const aidx=girls.indexOf(g);
+    return `<div class="girl-row">
+      <span class="rank ${rankClass}">${i+1}</span>
+      <div class="avatar" style="${avatarStyle(aidx)}">${getInitials(g)}</div>
+      <span class="girl-name">${esc(g)}</span>
+      <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${FILL_COLORS[aidx%FILL_COLORS.length]};"></div></div></div>
+      <div class="stat-col"><span class="stat-val">${sortMode==='books'?n:fmtMins(m)}</span><span class="stat-lbl">${sortMode==='books'?'books':'read'}</span></div>
+      <div class="stat-col"><span class="stat-val" style="font-size:12px;color:#888;">${sortMode==='books'?fmtMins(m):n+' bks'}</span><span class="stat-lbl">&nbsp;</span></div>
+      ${ms?`<span class="milestone-badge" style="background:${ms.bg};color:${ms.color};">${ms.label}</span>`:`<span style="font-size:11px;color:#888;">${next?'→'+next.books+' bks':''}</span>`}
+    </div>`;
+  }).join('');
+  document.getElementById('leaderboard-list').innerHTML = `<div class="card" style="padding:0.75rem 1.25rem;">${html}</div>`;
+}
+
+function renderMyBooks() {
+  const girl = document.getElementById('view-girl').value;
+  if(!girl) return;
+  const her = books.filter(b=>b.girl===girl).slice().reverse();
+  const totalMins = her.reduce((s,b)=>s+(b.mins||0),0);
+  document.getElementById('my-summary').innerHTML = her.length
+    ? `<div class="summary-card"><div class="s-val">${her.length}</div><div class="s-lbl">books read</div></div>
+       <div class="summary-card"><div class="s-val">${fmtMins(totalMins)}</div><div class="s-lbl">minutes read</div></div>`
+    : '';
+  const el = document.getElementById('mybooks-list');
+  if(!her.length){el.innerHTML='<div class="empty-state">No books logged yet.</div>';return;}
+  el.innerHTML = her.map(b=>{
+    const stars=b.rating?'★'.repeat(b.rating)+'☆'.repeat(5-b.rating):'';
+    const meta=[b.author,b.pages?b.pages+' pages':'',b.mins?fmtMins(b.mins):'',b.date].filter(Boolean).join(' · ');
+    return `<div class="book-entry">
+      <p class="book-title-text">${esc(b.title)}</p>
+      <p class="book-meta">${esc(meta)}</p>
+      ${stars?`<span class="stars-display">${stars}</span>`:''}
+      ${b.notes?`<p class="book-notes">"${esc(b.notes)}"</p>`:''}
+    </div>`;
+  }).join('');
+}
+
+function renderRoster() {
+  document.getElementById('roster-grid').innerHTML = [...girls,...Array(Math.max(0,14-girls.length)).fill('')].slice(0,14).map((g,i)=>
+    `<div class="roster-input-row">
+      <span class="roster-num">${i+1}</span>
+      <input type="text" value="${esc(g)}" placeholder="Add a name…" data-idx="${i}" oninput="updateRosterLocal(this)">
+    </div>`
+  ).join('');
+}
+
+function updateRosterLocal(el) {
+  const idx = parseInt(el.dataset.idx);
+  while(girls.length<=idx) girls.push('');
+  girls[idx] = el.value;
+}
+
+async function saveRoster() {
+  const msg = document.getElementById('roster-msg');
+  msg.className='msg info'; msg.textContent='Saving…';
+  const inputs = document.querySelectorAll('#roster-grid input');
+  const names = Array.from(inputs).map(i=>i.value.trim()).filter(Boolean);
+  try {
+    const rows = names.map(n=>[n]);
+    while(rows.length<14) rows.push(['']);
+    await sheetUpdate('roster!A2:A15', rows);
+    girls = names;
+    populateSelects();
+    renderLeaderboard();
+    msg.className='msg success'; msg.textContent='Roster saved for everyone!';
+    setTimeout(()=>msg.textContent='',3000);
+  } catch(e) {
+    msg.className='msg error'; msg.textContent='Save failed — try again.';
+  }
+}
+
+async function logBook() {
+  const girl  = document.getElementById('log-girl').value;
+  const title = document.getElementById('log-title').value.trim();
+  const author= document.getElementById('log-author').value.trim();
+  const pages = document.getElementById('log-pages').value||'';
+  const mins  = document.getElementById('log-mins').value||'';
+  const date  = document.getElementById('log-date').value;
+  const notes = document.getElementById('log-notes').value.trim();
+  const msg   = document.getElementById('log-msg');
+  const btn   = document.getElementById('save-btn');
+
+  if(!title){msg.className='msg error';msg.textContent='Please enter a book title.';return;}
+
+  btn.disabled=true; msg.className='msg info'; msg.textContent='Saving…';
+  const id = Date.now();
+  try {
+    await sheetAppend('books!A:I', [[id,girl,title,author,pages,mins,date,selectedRating,notes]]);
+    books.push({id,girl,title,author,pages:parseInt(pages)||0,mins:parseInt(mins)||0,date,rating:selectedRating,notes});
+    ['log-title','log-author','log-pages','log-mins','log-notes'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('log-date').value=new Date().toISOString().split('T')[0];
+    selectedRating=0;
+    document.querySelectorAll('.star').forEach(s=>s.classList.remove('lit'));
+    const n=books.filter(b=>b.girl===girl).length;
+    const totalMins=books.filter(b=>b.girl===girl).reduce((s,b)=>s+(b.mins||0),0);
+    const next=getNextMilestone(n);
+    msg.className='msg success';
+    msg.textContent=`Saved! ${girl}: ${n} book${n!==1?'s':''}, ${fmtMins(totalMins)} total.${next?' Next prize at '+next.books+' books!':''}`;
+    renderLeaderboard();
+  } catch(e) {
+    msg.className='msg error'; msg.textContent='Save failed — try again.';
+  }
+  btn.disabled=false;
+}
+
+function switchTab(name) {
+  const names=['leaderboard','log','mybooks','milestones','roster'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',names[i]===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  if(name==='mybooks') renderMyBooks();
+}
+
+document.querySelectorAll('.star').forEach(s=>{
+  s.addEventListener('click',()=>{
+    selectedRating=parseInt(s.dataset.val);
+    document.querySelectorAll('.star').forEach(st=>st.classList.toggle('lit',parseInt(st.dataset.val)<=selectedRating));
+  });
+});
+
+document.getElementById('log-date').value=new Date().toISOString().split('T')[0];
+loadAll();
+</script>
+</body>
+</html>
